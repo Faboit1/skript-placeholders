@@ -4,6 +4,7 @@ import ch.njol.skript.Skript;
 import ch.njol.skript.util.Version;
 import io.github.apickledwalrus.skriptplaceholders.placeholder.PlaceholderPlugin;
 import io.github.apickledwalrus.skriptplaceholders.placeholder.PlaceholderRegistry;
+import io.github.apickledwalrus.skriptplaceholders.util.SchedulerUtil;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -23,6 +24,10 @@ public class SkriptPlaceholders extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
+		if (SchedulerUtil.isFolia()) {
+			getLogger().severe("Folia support is extremely experimental. Stability is not guaranteed.");
+		}
+
 		Plugin skript = getServer().getPluginManager().getPlugin("Skript");
 		if (skript == null || !skript.isEnabled()) {
 			getLogger().severe("Could not find Skript. Make sure that you have it installed and that it is properly loaded. Disabling...");
