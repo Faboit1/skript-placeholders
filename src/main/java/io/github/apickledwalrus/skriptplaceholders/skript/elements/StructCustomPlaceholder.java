@@ -19,7 +19,7 @@ import io.github.apickledwalrus.skriptplaceholders.placeholder.PlaceholderRegist
 import io.github.apickledwalrus.skriptplaceholders.skript.PlaceholderEvent;
 import io.github.apickledwalrus.skriptplaceholders.placeholder.PlaceholderPlugin;
 import io.github.apickledwalrus.skriptplaceholders.skript.RelationalPlaceholderEvent;
-import org.bukkit.Bukkit;
+import io.github.apickledwalrus.skriptplaceholders.util.SchedulerUtil;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -111,28 +111,16 @@ public class StructCustomPlaceholder extends Structure implements PlaceholderEva
 		trigger.setDebugLabel(script + ": line " + lineNumber);
 
 		// see https://github.com/APickledWalrus/skript-placeholders/issues/40
-		// ensure registration is on the main thread
-		if (Bukkit.isPrimaryThread()) {
-			registry.registerPlaceholder(plugin, placeholder, this);
-		} else {
-			Bukkit.getScheduler().runTask(SkriptPlaceholders.getInstance(),
-					() -> registry.registerPlaceholder(plugin, placeholder, this)
-			);
-		}
+		// ensure registration is on the main thread/global scheduler
+		SchedulerUtil.runMainThread(() -> registry.registerPlaceholder(plugin, placeholder, this));
 
 		return true;
 	}
 
 	@Override
 	public void unload() {
-		// to be safe, ensure unregistering is done on the main thread too
-		if (Bukkit.isPrimaryThread()) {
-			registry.unregisterPlaceholder(plugin, placeholder, this);
-		} else {
-			Bukkit.getScheduler().runTask(SkriptPlaceholders.getInstance(),
-					() -> registry.unregisterPlaceholder(plugin, placeholder, this)
-			);
-		}
+		// to be safe, ensure unregistering is done on the main thread/global scheduler too
+		SchedulerUtil.runMainThread(() -> registry.unregisterPlaceholder(plugin, placeholder, this));
 	}
 
 	@Override
