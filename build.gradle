@@ -29,7 +29,7 @@ dependencies {
         transitive = false
     }
     implementation ('me.clip:placeholderapi:2.12.2')
-    implementation('be.maximvdw:MVdWPlaceholderAPI:3.1.1-SNAPSHOT') {
+    implementation('be.maximvdw:MVdWPlaceholderAPI:3.1.1') {
     	transitive = false
     }
 }
