@@ -51,3 +51,8 @@ tasks.register('nightlyBuild', Jar) {
     from sourceSets.main.output
     archiveFileName = 'skript-placeholders-nightly.jar'
 }
+
+
+tasks.named('jar', Jar) {
+    archiveClassifier = 'folia'
+}
