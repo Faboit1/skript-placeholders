@@ -34,8 +34,8 @@ public class SkriptPlaceholders extends JavaPlugin {
 			getServer().getPluginManager().disablePlugin(this);
 			return;
 		}
-		if (Skript.getVersion().isSmallerThan(new Version(2, 7, 3))) {
-			getLogger().severe("You are running an unsupported version of Skript. Please update to at least Skript 2.7.3. Disabling...");
+		if (Skript.getVersion().isSmallerThan(new Version(2, 10, 0))) {
+			getLogger().severe("You are running an unsupported version of Skript. Please update to at least Skript 2.10.0. Disabling...");
 			getServer().getPluginManager().disablePlugin(this);
 			return;
 		}
